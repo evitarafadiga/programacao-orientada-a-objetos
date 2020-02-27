@@ -21,6 +21,7 @@ public class EstouroHeap {
 		while (true) {
 			n1.proximo = new Node();
 			nos.add(n1);
+			
 		}
 
 	}
