@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class Livro {
     private String titulo = "";
     private String autor = "";
+    private String tipoMidia = "";
     private double preco;
     private LocalDate dataPublicacao = LocalDate.now();
 
@@ -21,6 +22,9 @@ public class Livro {
     public void setAutor(String autor) {
         this.autor = autor;
     }
+
+    public String getTipoMidia() { return tipoMidia; }
+    public void setTipoMidia(String tipoMidia) { this.tipoMidia = tipoMidia; }
 
     public double getPreco() {
         return preco;

@@ -16,23 +16,28 @@ public class LivroControl {
     private ObservableList<Livro> lista = FXCollections.observableArrayList();
     private TableView<Livro> table = new TableView<>();
 
-    private StringProperty nome = new SimpleStringProperty("");
-    public StringProperty nomeProperty() {
-        return nome;
+    private StringProperty titulo = new SimpleStringProperty("");
+    public StringProperty tituloProperty() {
+        return titulo;
     }
 
-    private StringProperty raca = new SimpleStringProperty("");
-    public StringProperty racaProperty() {
-        return raca;
+    private StringProperty autor = new SimpleStringProperty("");
+    public StringProperty autorProperty() {
+        return autor;
     }
 
-    private DoubleProperty peso = new SimpleDoubleProperty(0.0);
-    public DoubleProperty pesoProperty() {
-        return peso;
+    private StringProperty tipoMidia = new SimpleStringProperty("");
+    public StringProperty tipoMidiaProperty() {
+        return tipoMidia;
     }
 
-    private ObjectProperty<LocalDate> nascimento = new SimpleObjectProperty<>();
-    public ObjectProperty<LocalDate> nascimentoProperty() { return nascimento; }
+    private DoubleProperty preco = new SimpleDoubleProperty(0.0);
+    public DoubleProperty precoProperty() {
+        return preco;
+    }
+
+    private ObjectProperty<LocalDate> publicacao = new SimpleObjectProperty<>();
+    public ObjectProperty<LocalDate> publicacaoProperty() { return publicacao; }
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -43,18 +48,20 @@ public class LivroControl {
 
     public Livro getEntity() {
         Livro p = new Livro();
-        p.setTitulo(nome.get());
-        p.setAutor(raca.get());
-        p.setPreco(peso.get());
-        p.setDataPublicacao(nascimento.get());
+        p.setTitulo(titulo.get());
+        p.setAutor(autor.get());
+        p.setTipoMidia(tipoMidia.get());
+        p.setPreco(preco.get());
+        p.setDataPublicacao(publicacao.get());
         return p;
     }
     private void setEntity(Livro p) {
         if (p != null) {
-            nome.set(p.getTitulo());
-            raca.set(p.getAutor());
-            peso.set(p.getPreco());
-            nascimento.set(p.getDataPublicacao());
+            titulo.set(p.getTitulo());
+            autor.set(p.getAutor());
+            tipoMidia.set(p.getTipoMidia());
+            preco.set(p.getPreco());
+            publicacao.set(p.getDataPublicacao());
         }
     }
 
@@ -64,23 +71,26 @@ public class LivroControl {
     }
 
     public void pesquisarPorNome() {
-        List<Livro> livros = livroDAO.pesquisarPorNome(nome.get());
+        List<Livro> livros = livroDAO.pesquisarPorNome(titulo.get());
         lista.clear();
         lista.addAll(livros);
     }
 
     public void generateTable() {
-        TableColumn<Livro, String> colNome = new TableColumn<>("Nome");
-        colNome.setCellValueFactory(new PropertyValueFactory<Livro, String>("nome"));
+        TableColumn<Livro, String> colTitulo = new TableColumn<>("Título");
+        colTitulo.setCellValueFactory(new PropertyValueFactory<Livro, String>("titulo"));
 
-        TableColumn<Livro, String> colRaca = new TableColumn<>("Raça");
-        colRaca.setCellValueFactory(new PropertyValueFactory<Livro, String>("raca"));
+        TableColumn<Livro, String> colAutor = new TableColumn<>("Autor");
+        colAutor.setCellValueFactory(new PropertyValueFactory<Livro, String>("autor"));
 
-        TableColumn<Livro, Double> colPeso = new TableColumn<>("Peso");
-        colPeso.setCellValueFactory(new PropertyValueFactory<Livro, Double>("peso"));
+        TableColumn<Livro, String> colMidia = new TableColumn<>("Tipo de Mídia");
+        colAutor.setCellValueFactory(new PropertyValueFactory<Livro, String>("tipomidia"));
 
-        TableColumn<Livro, String> colNascimento = new TableColumn<>("Nascimento");
-        colNascimento.setCellValueFactory((item) -> {
+        TableColumn<Livro, Double> colPreco = new TableColumn<>("Preço");
+        colPreco.setCellValueFactory(new PropertyValueFactory<Livro, Double>("preço"));
+
+        TableColumn<Livro, String> colPublicacao = new TableColumn<>("Publicação");
+        colPublicacao.setCellValueFactory((item) -> {
             String txtData = item.getValue().getDataPublicacao().format(formatter);
             return new ReadOnlyStringWrapper(txtData);
         });
@@ -124,7 +134,7 @@ public class LivroControl {
             setEntity(newValue);
         });
 
-        table.getColumns().addAll(colNome, colRaca, colPeso, colNascimento, colAcoes);
+        table.getColumns().addAll(colTitulo, colAutor, colMidia, colPreco, colPublicacao, colAcoes);
         table.setItems(lista);
         pesquisarPorNome();
     }

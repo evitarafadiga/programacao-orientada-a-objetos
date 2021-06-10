@@ -44,35 +44,37 @@ class NossoConversorString extends StringConverter<LocalDate> {
 }
 
 public class LivroBoundary extends Application {
-    private ObservableList<String> racas =
-            FXCollections.observableArrayList("Dog Alemão", "Pastor Alemão",
-                    "Poodle", "Lhasa", "Pincher");
 
-    private TextField txtNome = new TextField();
-    private ComboBox<String> cmbRaca = new ComboBox<>();
-    private TextField txtPeso = new TextField();
+    private ObservableList<String> tipoMidia =
+            FXCollections.observableArrayList("Físico", "Digital");
+    private TextField txtTitulo = new TextField();
+    private TextField txtAutor = new TextField();
+    private ComboBox<String> cmbMidia = new ComboBox<>();
+    private TextField txtValor = new TextField();
     // private TextField txtNascimento = new TextField();
-    private DatePicker txtNascimento = new DatePicker(LocalDate.now());
+    private DatePicker txtPublicacao = new DatePicker(LocalDate.now());
     private LivroControl control = new LivroControl();
     private Button btnAdicionar = new Button("Adicionar");
     private Button btnPesquisar = new Button("Pesquisar");
 
     @Override
     public void start(Stage stage) throws Exception {
-        cmbRaca.setItems(racas);
+        cmbMidia.setItems(tipoMidia);
         BorderPane panePrincipal = new BorderPane();
         GridPane gp = new GridPane();
         Scene scn = new Scene(panePrincipal, 600, 400);
         panePrincipal.setTop(gp);
 
-        gp.add(new Label("Nome"), 0, 0);
-        gp.add(txtNome, 1, 0);
-        gp.add(new Label("Raça"), 0, 1);
-        gp.add(cmbRaca, 1, 1);
-        gp.add(new Label("Peso"), 0, 2);
-        gp.add(txtPeso, 1, 2);
-        gp.add(new Label("Nascimento"), 0, 3);
-        gp.add(txtNascimento, 1, 3);
+        gp.add(new Label( "Título"), 0, 0);
+        gp.add(txtTitulo, 1, 0);
+        gp.add(new Label("Autor"), 1, 2);
+        gp.add(txtAutor, 1, 0);
+        gp.add(new Label("Tipo de Mídia"), 0, 1);
+        gp.add(cmbMidia, 1, 1);
+        gp.add(new Label("Preço"), 0, 2);
+        gp.add(txtValor, 1, 2);
+        gp.add(new Label("Data de Publicação"), 0, 3);
+        gp.add(txtPublicacao, 1, 3);
         gp.add(btnAdicionar, 0, 4);
         gp.add(btnPesquisar, 1, 4);
 
@@ -86,10 +88,11 @@ public class LivroBoundary extends Application {
         StringConverter conversorStringLocalDate = new LocalDateStringConverter();
         // StringConverter conversorStringLocalDate = new NossoConversorString();
 
-        Bindings.bindBidirectional(txtNome.textProperty(), control.nomeProperty());
-        Bindings.bindBidirectional(cmbRaca.valueProperty(), control.racaProperty());
-        Bindings.bindBidirectional(txtPeso.textProperty(), control.pesoProperty(), conversorStringDouble);
-        Bindings.bindBidirectional(txtNascimento.valueProperty(), control.nascimentoProperty());
+        Bindings.bindBidirectional(txtTitulo.textProperty(), control.tituloProperty());
+        Bindings.bindBidirectional(txtAutor.textProperty(), control.autorProperty());
+        Bindings.bindBidirectional(cmbMidia.valueProperty(), control.tipoMidiaProperty());
+        Bindings.bindBidirectional(txtValor.textProperty(), control.precoProperty(), conversorStringDouble);
+        Bindings.bindBidirectional(txtPublicacao.valueProperty(), control.publicacaoProperty());
 
         stage.setScene(scn);
         stage.setTitle("Livros BCE Tradicional");

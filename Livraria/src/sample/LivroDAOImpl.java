@@ -26,8 +26,9 @@ public class LivroDAOImpl implements LivroDAO {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, p.getTitulo());
             stmt.setString(2, p.getAutor());
-            stmt.setDouble(3, p.getPreco());
-            stmt.setDate(4, java.sql.Date.valueOf(p.getDataPublicacao()));
+            stmt.setString( 3, p.getTipoMidia());
+            stmt.setDouble(4, p.getPreco());
+            stmt.setDate(5, java.sql.Date.valueOf(p.getDataPublicacao()));
             stmt.executeUpdate();
             con.close();
         } catch(SQLException e) {
@@ -47,10 +48,11 @@ public class LivroDAOImpl implements LivroDAO {
 
             while(rs.next()) {
                 Livro p = new Livro();
-                p.setTitulo(rs.getString("nome"));
-                p.setAutor(rs.getString("raca"));
-                p.setPreco(rs.getDouble("peso"));
-                p.setDataPublicacao(rs.getDate("nascimento").toLocalDate());
+                p.setTitulo(rs.getString("titulo"));
+                p.setAutor(rs.getString("autor"));
+                p.setTipoMidia(rs.getString( "tipomidia"));
+                p.setPreco(rs.getDouble("preco"));
+                p.setDataPublicacao(rs.getDate("publicacao").toLocalDate());
 
                 lista.add(p);
             }
