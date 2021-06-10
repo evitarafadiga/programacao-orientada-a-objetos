@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface PetDAO {
 
-    void adicionar(Pet p);
-    List<Pet> pesquisarPorNome(String nome);
+    void adicionar(Livro p);
+    List<Livro> pesquisarPorNome(String nome);
     void remover(long id);
 
 }

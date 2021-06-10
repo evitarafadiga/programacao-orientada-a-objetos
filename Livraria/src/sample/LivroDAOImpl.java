@@ -19,7 +19,7 @@ public class PetDAOImpl implements PetDAO {
     }
 
     @Override
-    public void adicionar(Pet p) {
+    public void adicionar(Livro p) {
         try {
             Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
             String sql = "INSERT INTO pet (nome, raca, peso, nascimento) VALUES (?, ?, ?, ?)";
@@ -36,8 +36,8 @@ public class PetDAOImpl implements PetDAO {
     }
 
     @Override
-    public List<Pet> pesquisarPorNome(String nome) {
-        List<Pet> lista = new ArrayList<>();
+    public List<Livro> pesquisarPorNome(String nome) {
+        List<Livro> lista = new ArrayList<>();
         try {
             Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
             String sql = "SELECT * FROM pet WHERE nome LIKE ?";
@@ -46,7 +46,7 @@ public class PetDAOImpl implements PetDAO {
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()) {
-                Pet p = new Pet();
+                Livro p = new Livro();
                 p.setNome(rs.getString("nome"));
                 p.setRaca(rs.getString("raca"));
                 p.setPeso(rs.getDouble("peso"));

@@ -13,8 +13,8 @@ import java.util.List;
 
 public class PetControl {
 
-    private ObservableList<Pet> lista = FXCollections.observableArrayList();
-    private TableView<Pet> table = new TableView<>();
+    private ObservableList<Livro> lista = FXCollections.observableArrayList();
+    private TableView<Livro> table = new TableView<>();
 
     private StringProperty nome = new SimpleStringProperty("");
     public StringProperty nomeProperty() {
@@ -41,15 +41,15 @@ public class PetControl {
     public PetControl() {
     }
 
-    public Pet getEntity() {
-        Pet p = new Pet();
+    public Livro getEntity() {
+        Livro p = new Livro();
         p.setNome(nome.get());
         p.setRaca(raca.get());
         p.setPeso(peso.get());
         p.setNascimento(nascimento.get());
         return p;
     }
-    private void setEntity(Pet p) {
+    private void setEntity(Livro p) {
         if (p != null) {
             nome.set(p.getNome());
             raca.set(p.getRaca());
@@ -59,39 +59,39 @@ public class PetControl {
     }
 
     public void adicionar() {
-        Pet p = getEntity();
+        Livro p = getEntity();
         petDAO.adicionar( p );
     }
 
     public void pesquisarPorNome() {
-        List<Pet> pets = petDAO.pesquisarPorNome(nome.get());
+        List<Livro> livros = petDAO.pesquisarPorNome(nome.get());
         lista.clear();
-        lista.addAll(pets);
+        lista.addAll(livros);
     }
 
     public void generateTable() {
-        TableColumn<Pet, String> colNome = new TableColumn<>("Nome");
-        colNome.setCellValueFactory(new PropertyValueFactory<Pet, String>("nome"));
+        TableColumn<Livro, String> colNome = new TableColumn<>("Nome");
+        colNome.setCellValueFactory(new PropertyValueFactory<Livro, String>("nome"));
 
-        TableColumn<Pet, String> colRaca = new TableColumn<>("Raça");
-        colRaca.setCellValueFactory(new PropertyValueFactory<Pet, String>("raca"));
+        TableColumn<Livro, String> colRaca = new TableColumn<>("Raça");
+        colRaca.setCellValueFactory(new PropertyValueFactory<Livro, String>("raca"));
 
-        TableColumn<Pet, Double> colPeso = new TableColumn<>("Peso");
-        colPeso.setCellValueFactory(new PropertyValueFactory<Pet, Double>("peso"));
+        TableColumn<Livro, Double> colPeso = new TableColumn<>("Peso");
+        colPeso.setCellValueFactory(new PropertyValueFactory<Livro, Double>("peso"));
 
-        TableColumn<Pet, String> colNascimento = new TableColumn<>("Nascimento");
+        TableColumn<Livro, String> colNascimento = new TableColumn<>("Nascimento");
         colNascimento.setCellValueFactory((item) -> {
             String txtData = item.getValue().getNascimento().format(formatter);
             return new ReadOnlyStringWrapper(txtData);
         });
 
-        TableColumn<Pet, String> colAcoes = new TableColumn<>("Ações");
+        TableColumn<Livro, String> colAcoes = new TableColumn<>("Ações");
 
-        Callback<TableColumn<Pet, String>, TableCell<Pet, String>> cellFactory = new
-                Callback<TableColumn<Pet, String>, TableCell<Pet, String>>() {
+        Callback<TableColumn<Livro, String>, TableCell<Livro, String>> cellFactory = new
+                Callback<TableColumn<Livro, String>, TableCell<Livro, String>>() {
                     @Override
-                    public TableCell<Pet, String> call(TableColumn<Pet, String> param) {
-                        TableCell<Pet, String> tableCell = new TableCell<Pet, String>() {
+                    public TableCell<Livro, String> call(TableColumn<Livro, String> param) {
+                        TableCell<Livro, String> tableCell = new TableCell<Livro, String>() {
                             private void handle(ActionEvent e) {
                                 System.out.println(getIndex());
                                 lista.remove(getIndex());
@@ -129,7 +129,7 @@ public class PetControl {
         pesquisarPorNome();
     }
 
-    public TableView<Pet> getTable() {
+    public TableView<Livro> getTable() {
         return table;
     }
 }
