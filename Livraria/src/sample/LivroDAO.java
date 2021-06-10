@@ -2,7 +2,7 @@ package sample;
 
 import java.util.List;
 
-public interface PetDAO {
+public interface LivroDAO {
 
     void adicionar(Livro p);
     List<Livro> pesquisarPorNome(String nome);

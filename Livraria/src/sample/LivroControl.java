@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class PetControl {
+public class LivroControl {
 
     private ObservableList<Livro> lista = FXCollections.observableArrayList();
     private TableView<Livro> table = new TableView<>();
@@ -36,35 +36,35 @@ public class PetControl {
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    private PetDAO petDAO = new PetDAOImpl();
+    private LivroDAO livroDAO = new LivroDAOImpl();
 
-    public PetControl() {
+    public LivroControl() {
     }
 
     public Livro getEntity() {
         Livro p = new Livro();
-        p.setNome(nome.get());
-        p.setRaca(raca.get());
-        p.setPeso(peso.get());
-        p.setNascimento(nascimento.get());
+        p.setTitulo(nome.get());
+        p.setAutor(raca.get());
+        p.setPreco(peso.get());
+        p.setDataPublicacao(nascimento.get());
         return p;
     }
     private void setEntity(Livro p) {
         if (p != null) {
-            nome.set(p.getNome());
-            raca.set(p.getRaca());
-            peso.set(p.getPeso());
-            nascimento.set(p.getNascimento());
+            nome.set(p.getTitulo());
+            raca.set(p.getAutor());
+            peso.set(p.getPreco());
+            nascimento.set(p.getDataPublicacao());
         }
     }
 
     public void adicionar() {
         Livro p = getEntity();
-        petDAO.adicionar( p );
+        livroDAO.adicionar( p );
     }
 
     public void pesquisarPorNome() {
-        List<Livro> livros = petDAO.pesquisarPorNome(nome.get());
+        List<Livro> livros = livroDAO.pesquisarPorNome(nome.get());
         lista.clear();
         lista.addAll(livros);
     }
@@ -81,7 +81,7 @@ public class PetControl {
 
         TableColumn<Livro, String> colNascimento = new TableColumn<>("Nascimento");
         colNascimento.setCellValueFactory((item) -> {
-            String txtData = item.getValue().getNascimento().format(formatter);
+            String txtData = item.getValue().getDataPublicacao().format(formatter);
             return new ReadOnlyStringWrapper(txtData);
         });
 
@@ -95,7 +95,7 @@ public class PetControl {
                             private void handle(ActionEvent e) {
                                 System.out.println(getIndex());
                                 lista.remove(getIndex());
-                                FXDialogs.show("Gestão de Pets",
+                                FXDialogs.show("Gestão de Livros",
                                         "Remoção de registro",
                                         "O registro " + getIndex() + " for removido com sucesso",
                                         Alert.AlertType.INFORMATION);

@@ -5,12 +5,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PetDAOImpl implements PetDAO {
+public class LivroDAOImpl implements LivroDAO {
     private static final String URL = "jdbc:mariadb://localhost:3306/petdb?allowMultiQueries=true";
     private static final String USER = "root";
     private static final String PASSWORD = "123456";
 
-    public PetDAOImpl() {
+    public LivroDAOImpl() {
         try {
             Class.forName("org.mariadb.jdbc.Driver");
         } catch (Exception e) {
@@ -24,10 +24,10 @@ public class PetDAOImpl implements PetDAO {
             Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
             String sql = "INSERT INTO pet (nome, raca, peso, nascimento) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setString(1, p.getNome());
-            stmt.setString(2, p.getRaca());
-            stmt.setDouble(3, p.getPeso());
-            stmt.setDate(4, java.sql.Date.valueOf(p.getNascimento()));
+            stmt.setString(1, p.getTitulo());
+            stmt.setString(2, p.getAutor());
+            stmt.setDouble(3, p.getPreco());
+            stmt.setDate(4, java.sql.Date.valueOf(p.getDataPublicacao()));
             stmt.executeUpdate();
             con.close();
         } catch(SQLException e) {
@@ -47,10 +47,10 @@ public class PetDAOImpl implements PetDAO {
 
             while(rs.next()) {
                 Livro p = new Livro();
-                p.setNome(rs.getString("nome"));
-                p.setRaca(rs.getString("raca"));
-                p.setPeso(rs.getDouble("peso"));
-                p.setNascimento(rs.getDate("nascimento").toLocalDate());
+                p.setTitulo(rs.getString("nome"));
+                p.setAutor(rs.getString("raca"));
+                p.setPreco(rs.getDouble("peso"));
+                p.setDataPublicacao(rs.getDate("nascimento").toLocalDate());
 
                 lista.add(p);
             }

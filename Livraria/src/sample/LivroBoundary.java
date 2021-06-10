@@ -3,7 +3,6 @@ package sample;
 
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -16,7 +15,6 @@ import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.LocalDateStringConverter;
 
 import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 
 class NossoConversorString extends StringConverter<LocalDate> {
@@ -45,7 +43,7 @@ class NossoConversorString extends StringConverter<LocalDate> {
     }
 }
 
-public class PetBoundary extends Application {
+public class LivroBoundary extends Application {
     private ObservableList<String> racas =
             FXCollections.observableArrayList("Dog Alemão", "Pastor Alemão",
                     "Poodle", "Lhasa", "Pincher");
@@ -55,7 +53,7 @@ public class PetBoundary extends Application {
     private TextField txtPeso = new TextField();
     // private TextField txtNascimento = new TextField();
     private DatePicker txtNascimento = new DatePicker(LocalDate.now());
-    private PetControl control = new PetControl();
+    private LivroControl control = new LivroControl();
     private Button btnAdicionar = new Button("Adicionar");
     private Button btnPesquisar = new Button("Pesquisar");
 
@@ -94,11 +92,11 @@ public class PetBoundary extends Application {
         Bindings.bindBidirectional(txtNascimento.valueProperty(), control.nascimentoProperty());
 
         stage.setScene(scn);
-        stage.setTitle("Pets BCE Tradicional");
+        stage.setTitle("Livros BCE Tradicional");
         stage.show();
     }
 
     public static void main(String[] args) {
-        Application.launch(PetBoundary.class, args);
+        Application.launch(LivroBoundary.class, args);
     }
 }
